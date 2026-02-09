@@ -1,14 +1,22 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 const admin = require('firebase-admin');
-const serviceAccount = require('./firebase-keys.json');
+
+let serviceAccount;
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  // Production: Use environment variable
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+} else {
+  // Development: Use local file
+  serviceAccount = require('./firebase-keys.json');
+}
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
