@@ -1,6 +1,9 @@
-# To-Do List App (MEAN Stack - Lite)
+# To-Do List Application
 
-A simple CRUD To-Do list application built with **Angular** (Frontend) and **Node.js/Express** (Backend).
+**Live Demo:** [https://watcharapon001.github.io/to-do-list/](https://watcharapon001.github.io/to-do-list/)
+**Backend API:** [https://todo-backend-zbpt.onrender.com](https://todo-backend-zbpt.onrender.com)
+
+A full-stack To-Do List application built with: **Angular** (Frontend) and **Node.js/Express** (Backend).
 
 ## Features
 - **Add Tasks**: Create new to-do items.
