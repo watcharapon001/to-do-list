@@ -1,38 +1,62 @@
-<div class="todo-container">
-    <h1>My To-Do List</h1>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-4">
+                    <h1 class="text-center mb-4 text-primary fw-bold">My To-Do List</h1>
 
-    <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-    </div>
+                    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                        {{ errorMessage }}
+                    </div>
 
-    <div class="add-todo-form">
-        <input type="text" [(ngModel)]="newTodoTitle" (keyup.enter)="addTodo()" placeholder="What needs to be done?"
-            class="todo-input">
-        <button (click)="addTodo()" [disabled]="!newTodoTitle.trim()" class="add-btn">Add</button>
-    </div>
+                    <!-- Add Todo Form -->
+                    <div class="input-group mb-4">
+                        <input type="text" [(ngModel)]="newTodoTitle" (keyup.enter)="addTodo()"
+                            placeholder="What needs to be done?" class="form-control form-control-lg">
+                        <button (click)="addTodo()" [disabled]="!newTodoTitle.trim()"
+                            class="btn btn-primary btn-lg">Add</button>
+                    </div>
 
-    <div class="filters">
-        <button [class.active]="filter === 'all'" (click)="setFilter('all')">All</button>
-        <button [class.active]="filter === 'active'" (click)="setFilter('active')">Active</button>
-        <button [class.active]="filter === 'completed'" (click)="setFilter('completed')">Completed</button>
-    </div>
+                    <!-- Filters -->
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn" [class.btn-primary]="filter === 'all'"
+                                [class.btn-outline-primary]="filter !== 'all'" (click)="setFilter('all')">All</button>
+                            <button type="button" class="btn" [class.btn-primary]="filter === 'active'"
+                                [class.btn-outline-primary]="filter !== 'active'"
+                                (click)="setFilter('active')">Active</button>
+                            <button type="button" class="btn" [class.btn-primary]="filter === 'completed'"
+                                [class.btn-outline-primary]="filter !== 'completed'"
+                                (click)="setFilter('completed')">Completed</button>
+                        </div>
+                    </div>
 
-    <ul class="todo-list">
-        <li *ngFor="let todo of filteredTodos" [class.completed]="todo.completed">
-            <div class="todo-item">
-                <input type="checkbox" [checked]="todo.completed" (change)="toggleTodo(todo)" class="todo-checkbox">
-                <span class="todo-text">{{ todo.title }}</span>
+                    <!-- Todo List -->
+                    <ul class="list-group list-group-flush">
+                        <li *ngFor="let todo of filteredTodos"
+                            class="list-group-item d-flex align-items-center justify-content-between py-3 border-bottom-0"
+                            [class.bg-light]="todo.completed">
+                            <div class="d-flex align-items-center flex-grow-1 me-3">
+                                <input class="form-check-input me-3 mt-0" type="checkbox" [checked]="todo.completed"
+                                    (change)="toggleTodo(todo)" style="width: 1.25em; height: 1.25em;">
+                                <span class="lead mb-0 text-break" [class.text-decoration-line-through]="todo.completed"
+                                    [class.text-muted]="todo.completed">{{ todo.title }}</span>
+                            </div>
 
-                <div class="todo-actions">
-                    <button (click)="openEditModal(todo)" class="edit-btn">Edit</button>
-                    <button (click)="deleteTodo(todo)" class="delete-btn">Delete</button>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button (click)="openEditModal(todo)" class="btn btn-outline-secondary">Edit</button>
+                                <button (click)="deleteTodo(todo)" class="btn btn-outline-danger">Delete</button>
+                            </div>
+                        </li>
+                        <li *ngIf="todos.length === 0"
+                            class="list-group-item text-center text-muted py-4 fst-italic border-0">
+                            No tasks yet. Add one above!
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </li>
-        <li *ngIf="todos.length === 0" class="empty-state">
-            No tasks yet. Add one above!
-        </li>
-    </ul>
+        </div>
+    </div>
 
     <app-edit-modal [isOpen]="!!editingTodo" [todo]="editingTodo" (save)="saveEdit($event)"
         (cancel)="closeEditModal()"></app-edit-modal>

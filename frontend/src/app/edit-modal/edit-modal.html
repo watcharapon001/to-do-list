@@ -1,15 +1,23 @@
-<div class="modal-backdrop" *ngIf="isOpen" (click)="onCancel()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <h2>Edit Task</h2>
-
-        <div class="form-group">
-            <input type="text" [(ngModel)]="editTitle" (keyup.enter)="onSave()" class="modal-input"
-                placeholder="Task title" autofocus>
-        </div>
-
-        <div class="modal-actions">
-            <button class="cancel-btn" (click)="onCancel()">Cancel</button>
-            <button class="save-btn" (click)="onSave()" [disabled]="!editTitle.trim()">Save</button>
+<div class="modal fade show d-block" tabindex="-1" role="dialog" *ngIf="isOpen"
+    style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary fw-bold">Edit Task</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="editTitle" class="form-label">Task Title</label>
+                    <input type="text" class="form-control" id="editTitle" [(ngModel)]="editTitle"
+                        (keyup.enter)="onSave()">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="onSave()"
+                    [disabled]="!editTitle.trim() || editTitle === todo?.title">Save Changes</button>
+            </div>
         </div>
     </div>
 </div>
