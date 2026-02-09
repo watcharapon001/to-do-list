@@ -1,0 +1,15 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="onCancel()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <h2>Edit Task</h2>
+
+        <div class="form-group">
+            <input type="text" [(ngModel)]="editTitle" (keyup.enter)="onSave()" class="modal-input"
+                placeholder="Task title" autofocus>
+        </div>
+
+        <div class="modal-actions">
+            <button class="cancel-btn" (click)="onCancel()">Cancel</button>
+            <button class="save-btn" (click)="onSave()" [disabled]="!editTitle.trim()">Save</button>
+        </div>
+    </div>
+</div>

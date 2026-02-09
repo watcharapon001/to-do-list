@@ -1,0 +1,42 @@
+<div class="todo-container">
+    <h1>My To-Do List</h1>
+
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+
+    <div class="add-todo-form">
+        <input type="text" [(ngModel)]="newTodoTitle" (keyup.enter)="addTodo()" placeholder="What needs to be done?"
+            class="todo-input">
+        <button (click)="addTodo()" [disabled]="!newTodoTitle.trim()" class="add-btn">Add</button>
+    </div>
+
+    <div class="filters">
+        <button [class.active]="filter === 'all'" (click)="setFilter('all')">All</button>
+        <button [class.active]="filter === 'active'" (click)="setFilter('active')">Active</button>
+        <button [class.active]="filter === 'completed'" (click)="setFilter('completed')">Completed</button>
+    </div>
+
+    <ul class="todo-list">
+        <li *ngFor="let todo of filteredTodos" [class.completed]="todo.completed">
+            <div class="todo-item">
+                <input type="checkbox" [checked]="todo.completed" (change)="toggleTodo(todo)" class="todo-checkbox">
+                <span class="todo-text">{{ todo.title }}</span>
+
+                <div class="todo-actions">
+                    <button (click)="openEditModal(todo)" class="edit-btn">Edit</button>
+                    <button (click)="deleteTodo(todo)" class="delete-btn">Delete</button>
+                </div>
+            </div>
+        </li>
+        <li *ngIf="todos.length === 0" class="empty-state">
+            No tasks yet. Add one above!
+        </li>
+    </ul>
+
+    <app-edit-modal [isOpen]="!!editingTodo" [todo]="editingTodo" (save)="saveEdit($event)"
+        (cancel)="closeEditModal()"></app-edit-modal>
+
+    <app-delete-modal [isOpen]="!!deletingTodo" [todo]="deletingTodo" (confirm)="confirmDelete()"
+        (cancel)="cancelDelete()"></app-delete-modal>
+</div>

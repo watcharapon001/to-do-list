@@ -1,0 +1,15 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="onCancel()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <h2>Delete Task?</h2>
+
+        <p class="warning-text">
+            Are you sure you want to delete <strong>"{{ todo?.title }}"</strong>?
+            <br>This action cannot be undone.
+        </p>
+
+        <div class="modal-actions">
+            <button class="cancel-btn" (click)="onCancel()">Cancel</button>
+            <button class="delete-btn" (click)="onConfirm()">Delete</button>
+        </div>
+    </div>
+</div>

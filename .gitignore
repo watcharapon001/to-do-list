@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+dist/
+
+# Env & Secrets
+.env
+backend/firebase-keys.json
+firebase-keys.json
+
+# System
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
